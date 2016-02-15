@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.input.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<MenuBar xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.avatar.realms.blf.controllers.MenuBarController">
+  <menus>
+    <Menu mnemonicParsing="false" text="File">
+      <items>
+            <MenuItem mnemonicParsing="false" onAction="#openFile" text="Open" />
+            <MenuItem fx:id="saveMenuItem" disable="true" mnemonicParsing="false" onAction="#saveResult" text="Save result">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="S" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
+        <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Close">
+               <accelerator>
+                  <KeyCodeCombination alt="UP" code="Q" control="ANY" meta="UP" shift="UP" shortcut="UP" />
+               </accelerator></MenuItem>
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Edit">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#changeHoursRange" text="Hours range" />
+            <Menu mnemonicParsing="false" text="Delete lines">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#deleteConnectionsLines" text="Connections" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteDisconnectionsLines" text="Disconnections" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteCommandBlocksLines" text="Command blocks" />
+                <MenuItem mnemonicParsing="false" onAction="#deleteDeathsLines" text="Deaths" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteExceptionsLines" text="Exceptions" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#customDeleteLines" text="Custom" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Delete characters strings">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#customDeleteStrings" text="Custom" />
+              </items>
+            </Menu>
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Help">
+      <items>
+        <MenuItem mnemonicParsing="false" onAction="#aboutWindow" text="About" />
+      </items>
+    </Menu>
+  </menus>
+</MenuBar>
