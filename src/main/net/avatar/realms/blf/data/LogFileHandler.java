@@ -41,21 +41,22 @@ public class LogFileHandler {
         if (file == null) {
             throw new BLFDataException("Invalid file.", new NullPointerException());
         }
-        if (!file.exists()) {
-            try {
+
+        try {
+            if (!file.exists()) {
                 file.createNewFile();
-                FileOutputStream fos = new FileOutputStream(file);
-                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, CHARSET));
-
-                for (String line : lines) {
-                    bw.write(line);
-                    bw.newLine();
-                }
-
-                bw.close();
-            } catch (IOException e) {
-                throw new BLFDataException("Was not able to create the save file.", e);
             }
+            FileOutputStream fos = new FileOutputStream(file);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos, CHARSET));
+
+            for (String line : lines) {
+                bw.write(line);
+                bw.newLine();
+            }
+
+            bw.close();
+        } catch (IOException e) {
+            throw new BLFDataException("Was not able to create the save file.", e);
         }
     }
 }

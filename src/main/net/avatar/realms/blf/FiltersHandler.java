@@ -15,6 +15,11 @@ public class FiltersHandler {
     private static final Pattern DISCONNECTION_3 = Pattern.compile(HOUR_REGEX + "\\[Server thread\\/INFO\\]: .+ left the game");
 
     private static final Pattern CONNECTION_1 = Pattern.compile(HOUR_REGEX + "\\[Server thread\\/INFO\\]: .+ joined the game");
+    private static final Pattern CONNECTION_2 = Pattern.compile(HOUR_REGEX + "\\[Server thread\\/INFO\\]: .+ logged in with entity id \\d+");
+    private static final Pattern CONNECTION_3 = Pattern.compile(HOUR_REGEX + "\\[User Authenticator #\\d+\\/INFO\\]: UUID of player .+ is");
+
+
+    private static final Pattern COMMANDBLOCK_1 = Pattern.compile(HOUR_REGEX + "\\[Server thread\\/INFO\\]: \\[@: ");
 
     public static boolean matchesDisconnection(String line) {
        return DISCONNECTION_1.matcher(line).find()
@@ -24,6 +29,12 @@ public class FiltersHandler {
     }
 
     public static boolean matchesConnection(String line) {
-        return CONNECTION_1.matcher(line).find();
+        return CONNECTION_1.matcher(line).find()
+                ||CONNECTION_2.matcher(line).find()
+                ||CONNECTION_3.matcher(line).find();
+    }
+
+    public static boolean matchesCommandBlock(String line){
+        return COMMANDBLOCK_1.matcher(line).find();
     }
 }

@@ -71,7 +71,14 @@ public class MenuBarController implements Controller{
 
     @FXML
     void deleteCommandBlocksLines(ActionEvent event) {
+        List<String> newLines = new LinkedList<>();
 
+        for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+            if (!FiltersHandler.matchesCommandBlock(line)) {
+                newLines.add(line);
+            }
+        }
+        mainController.update(newLines);
     }
 
     @FXML
@@ -161,7 +168,6 @@ public class MenuBarController implements Controller{
         alert.setHeaderText("An exception has been thrown");
         alert.setContentText(exception.getMessage());
 
-// Create expandable Exception.
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         exception.getCause().printStackTrace(pw);
