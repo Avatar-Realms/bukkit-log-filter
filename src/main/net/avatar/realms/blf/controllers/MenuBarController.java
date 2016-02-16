@@ -164,6 +164,18 @@ public class MenuBarController implements Controller{
     }
 
     @FXML
+    void deletePlayerCommandLines(ActionEvent event) {
+        List<String> newLines = new LinkedList<>();
+
+        for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+            if (!FiltersHandler.matchesPlayerCommand(line)) {
+                newLines.add(line);
+            }
+        }
+        mainController.update(newLines);
+    }
+
+    @FXML
     void openFile(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Open log file");
