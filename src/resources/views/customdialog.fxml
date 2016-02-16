@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="650.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+  <columnConstraints>
+    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="NEVER" />
+    <RowConstraints maxHeight="40.0" minHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Enter the string that should be searched : " />
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <children>
+            <ComboBox fx:id="firstCB" prefWidth="100.0">
+               <tooltip>
+                  <Tooltip text="Line starts with the hour" />
+               </tooltip>
+            </ComboBox>
+            <ComboBox fx:id="secondCB" prefWidth="100.0">
+               <tooltip>
+                  <Tooltip text="Line has a specific header" />
+               </tooltip>
+            </ComboBox>
+            <TextField fx:id="thirdTF" prefWidth="250.0" />
+            <CheckBox fx:id="regexCB" mnemonicParsing="false" text="Regex">
+               <tooltip>
+                  <Tooltip text="The entered text is a regular expression" />
+               </tooltip>
+            </CheckBox>
+            <CheckBox fx:id="caseCB" mnemonicParsing="false" selected="true" text="Case sensitive">
+               <tooltip>
+                  <Tooltip text="Should be the line search case sensitive ?" />
+               </tooltip>
+            </CheckBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+         <children>
+            <CheckBox fx:id="saveCB" mnemonicParsing="false" text="Save with name : " />
+            <TextField fx:id="nameTF" />
+         </children>
+      </HBox>
+   </children>
+</GridPane>

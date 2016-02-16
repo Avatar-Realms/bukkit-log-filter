@@ -13,10 +13,12 @@ import javafx.util.Pair;
 import net.avatar.realms.blf.BukkitLogFilter;
 import net.avatar.realms.blf.FiltersHandler;
 import net.avatar.realms.blf.data.LogFileHandler;
+import net.avatar.realms.blf.dialogs.CustomStringDialog;
 import net.avatar.realms.blf.dialogs.HourRangeDialog;
 import net.avatar.realms.blf.exceptions.BLFDataException;
 import net.avatar.realms.blf.exceptions.BLFException;
 import net.avatar.realms.blf.exceptions.BLFFormatException;
+import net.avatar.realms.blf.models.CustomString;
 import net.avatar.realms.blf.models.Hour;
 
 import java.io.File;
@@ -25,6 +27,7 @@ import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class MenuBarController implements Controller{
 
@@ -84,11 +87,38 @@ public class MenuBarController implements Controller{
     @FXML
     void customDeleteLines(ActionEvent event) {
 
+        CustomStringDialog dialog = new CustomStringDialog("Delete line custom search");
+        Optional<CustomString> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            CustomString cs = result.get();
+            Pattern pat = cs.compile();
+
+            List<String> newLines = new LinkedList<>();
+
+            for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+                if (!FiltersHandler.matchesPattern(line, pat)) {
+                    newLines.add(line);
+                }
+            }
+            mainController.update(newLines);
+        }
     }
 
     @FXML
     void customDeleteStrings(ActionEvent event) {
+        CustomStringDialog dialog = new CustomStringDialog("Delete string custom search");
+        Optional<CustomString> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            CustomString cs = result.get();
+            Pattern pat = cs.compile();
 
+            List<String> newLines = new LinkedList<>();
+
+            for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+                newLines.add(pat.matcher(line).replaceAll(""));
+            }
+            mainController.update(newLines);
+        }
     }
 
     @FXML

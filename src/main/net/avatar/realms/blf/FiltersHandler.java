@@ -12,24 +12,31 @@ public class FiltersHandler {
     public static final String S_THREAD_WARN = "\\[Server thread\\/WARN\\]: ";
     public static final String THREAD_WARN = "\\[Thread-\\d+\\/WARN\\]: ";
     public static final String CRAFT_WARN = "\\[Craft Scheduler Thread - \\d+\\/WARN\\]: ";
-    public static final String THREAD_ERROR = "\\[Server thread\\/INFO\\]: ";
+    public static final String CRAFT_INFO = "\\[Craft Scheduler Thread - \\d+\\/INFO\\]: ";
+    public static final String THREAD_ERROR = "\\[Server thread\\/ERROR\\]: ";
 
     private static final Pattern[] DISCONNECTIONS = {Pattern.compile(HOUR_REGEX + THREAD_INFO + "Disconnecting com\\.mojang\\.authlib"),
-            Pattern.compile(HOUR_REGEX + THREAD_INFO + ".+ lost connection: "),
-            Pattern.compile(HOUR_REGEX + THREAD_INFO + ".+ left the game")};
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ lost connection: "),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ left the game")};
 
     private static final Pattern[] CONNECTIONS = {Pattern.compile(HOUR_REGEX + THREAD_INFO + ".+ joined the game"),
-            Pattern.compile(HOUR_REGEX + THREAD_INFO + ".+ logged in with entity id \\d+"),
-            Pattern.compile(HOUR_REGEX + "\\[User Authenticator #\\d+\\/INFO\\]: UUID of player .+ is")};
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ logged in with entity id \\d+"),
+            Pattern.compile(HOUR_REGEX + "\\[User Authenticator #\\d+\\/INFO\\]: UUID of player \\S+ is")};
 
     private static final Pattern[] COMMANDBLOCKS = {Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\[@: "),
             Pattern.compile(HOUR_REGEX + THREAD_INFO + "CommandBlock at [\\d,\\-]+ issued server command: .+")};
 
     private static final Pattern[] DEATHS = {Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was killed by Witch using magic"),
             Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ tried to swim in lava"),
-            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was blown up by Creeper"),
-            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was slain by Zombie"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was blown up by \\S+"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was slain by \\S+"),
             Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ burned to death"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ went up in flames"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was shot by \\S+"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ starved to death"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ hit the ground too hard"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was killed trying to hurt \\S+"),
+            Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ was burnt to a crisp whilst fighting \\S+"),
             Pattern.compile(HOUR_REGEX + THREAD_INFO + "\\S+ fell from a high place")};
 
     private static final Pattern[] CONSOLES = {Pattern.compile(HOUR_REGEX + THREAD_INFO + "CONSOLE issued server command: .+")};
@@ -105,5 +112,9 @@ public class FiltersHandler {
             }
         }
         return false;
+    }
+
+    public static boolean matchesPattern(String line, Pattern custom) {
+        return custom.matcher(line).find();
     }
 }
