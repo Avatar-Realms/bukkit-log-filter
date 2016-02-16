@@ -53,7 +53,6 @@ public class CustomString {
         }
 
         builder.append(third);
-        System.out.println(builder.toString());
 
         if (caseSensitive) {
             pattern = Pattern.compile(builder.toString());
