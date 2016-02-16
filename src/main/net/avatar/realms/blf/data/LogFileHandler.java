@@ -1,5 +1,6 @@
 package net.avatar.realms.blf.data;
 
+import javafx.stage.FileChooser;
 import net.avatar.realms.blf.exceptions.BLFDataException;
 
 import java.io.*;
@@ -10,6 +11,10 @@ import java.util.List;
  * Created by Nokorbis on 15/02/2016.
  */
 public class LogFileHandler {
+
+    public static final FileChooser.ExtensionFilter COMPRESSED_EXTENSION = new FileChooser.ExtensionFilter("Compressed log files", "*.gz", "*.zip");
+    public static final FileChooser.ExtensionFilter LOG_EXTENSION = new FileChooser.ExtensionFilter("Log files", "*.log");
+    public static final FileChooser.ExtensionFilter TEXT_EXTENSION = new FileChooser.ExtensionFilter("Text files", "*.txt");
 
     private static final String CHARSET = "UTF-8";
 

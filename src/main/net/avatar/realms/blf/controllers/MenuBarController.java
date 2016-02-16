@@ -22,28 +22,16 @@ import net.avatar.realms.blf.models.Hour;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 public class MenuBarController implements Controller{
-
-    private static final FileChooser.ExtensionFilter COMPRESSED_EXTENSION = new FileChooser.ExtensionFilter("Compressed log files", "*.gz", "*.zip");
-    private static final FileChooser.ExtensionFilter LOG_EXTENSION = new FileChooser.ExtensionFilter("Log files", "*.log");
-    private static final FileChooser.ExtensionFilter TEXT_EXTENSION = new FileChooser.ExtensionFilter("Text files", "*.txt");
 
     private MainController mainController;
 
     @FXML
     private MenuItem saveMenuItem;
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     public void setMainController(MainController controller) {
         this.mainController = controller;
@@ -141,19 +129,45 @@ public class MenuBarController implements Controller{
 
     @FXML
     void deleteDeathsLines(ActionEvent event) {
+        List<String> newLines = new LinkedList<>();
 
+        for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+            if (!FiltersHandler.matchesDeath(line)) {
+                newLines.add(line);
+            }
+        }
+        mainController.update(newLines);
     }
 
     @FXML
     void deleteExceptionsLines(ActionEvent event) {
+        List<String> newLines = new LinkedList<>();
 
+        for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+            if (!FiltersHandler.matchesException(line)) {
+                newLines.add(line);
+            }
+        }
+        mainController.update(newLines);
+    }
+
+    @FXML
+    void deleteConsoleCommandLines(ActionEvent event) {
+        List<String> newLines = new LinkedList<>();
+
+        for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+            if (!FiltersHandler.matchesConsoleCommand(line)) {
+                newLines.add(line);
+            }
+        }
+        mainController.update(newLines);
     }
 
     @FXML
     void openFile(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Open log file");
-        chooser.getExtensionFilters().addAll(LOG_EXTENSION, TEXT_EXTENSION);
+        chooser.getExtensionFilters().addAll(LogFileHandler.LOG_EXTENSION, LogFileHandler.TEXT_EXTENSION);
         File selectedFile = chooser.showOpenDialog(BukkitLogFilter.getLogFilter().getStage());
         if (selectedFile != null) {
             try {
@@ -170,7 +184,7 @@ public class MenuBarController implements Controller{
     void saveResult(ActionEvent event) {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Save log file");
-        chooser.getExtensionFilters().addAll(LOG_EXTENSION);
+        chooser.getExtensionFilters().addAll(LogFileHandler.LOG_EXTENSION);
         File selectedFile = chooser.showSaveDialog(BukkitLogFilter.getLogFilter().getStage());
         if (selectedFile != null) {
             try {

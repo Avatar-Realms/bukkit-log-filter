@@ -29,6 +29,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#deleteDisconnectionsLines" text="Disconnections" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#deleteCommandBlocksLines" text="Command blocks" />
+                  <MenuItem mnemonicParsing="false" onAction="#deleteConsoleCommandLines" text="Console commands" />
                 <MenuItem mnemonicParsing="false" onAction="#deleteDeathsLines" text="Deaths" />
                   <MenuItem mnemonicParsing="false" onAction="#deleteExceptionsLines" text="Exceptions" />
                   <SeparatorMenuItem mnemonicParsing="false" />
