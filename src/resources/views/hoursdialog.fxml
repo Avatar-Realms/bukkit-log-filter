@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.40">
+  <columnConstraints>
+    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="30.0" minHeight="15.0" prefHeight="30.0" vgrow="NEVER" />
+    <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="NEVER" />
+    <RowConstraints minHeight="15.0" prefHeight="30.0" vgrow="NEVER" />
+  </rowConstraints>
+   <children>
+      <Label text="Set the hours range :" />
+      <Label text="Start hour : " GridPane.rowIndex="1" />
+      <Label text="End hour : " GridPane.rowIndex="2" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <ComboBox fx:id="startHoursCB" prefWidth="150.0" />
+            <Label text=":" />
+            <ComboBox fx:id="startMinutesCB" prefWidth="150.0" />
+            <Label text=":" />
+            <ComboBox fx:id="startSecondsCB" prefWidth="150.0" />
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <ComboBox fx:id="endHoursCB" prefWidth="150.0" />
+            <Label text=":" />
+            <ComboBox fx:id="endMinutesCB" prefWidth="150.0" />
+            <Label text=":" />
+            <ComboBox fx:id="endSecondsCB" prefWidth="150.0" />
+         </children>
+      </HBox>
+   </children>
+</GridPane>

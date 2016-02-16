@@ -15,8 +15,8 @@ public class Hour {
 
     public Hour(String summary) throws BLFFormatException {
         if (summary.matches(HOUR_REGEX)) {
-            summary.replace("[", "");
-            summary.replace("]", "");
+            summary = summary.replace("[", "");
+            summary = summary.replace("]", "");
             String[] array = summary.split(":");
             try {
                 this.hours = Integer.parseInt(array[0]);

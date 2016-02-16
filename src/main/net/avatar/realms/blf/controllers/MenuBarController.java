@@ -9,11 +9,15 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
+import javafx.util.Pair;
 import net.avatar.realms.blf.BukkitLogFilter;
 import net.avatar.realms.blf.FiltersHandler;
 import net.avatar.realms.blf.data.LogFileHandler;
+import net.avatar.realms.blf.dialogs.HourRangeDialog;
 import net.avatar.realms.blf.exceptions.BLFDataException;
 import net.avatar.realms.blf.exceptions.BLFException;
+import net.avatar.realms.blf.exceptions.BLFFormatException;
+import net.avatar.realms.blf.models.Hour;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -21,6 +25,7 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MenuBarController implements Controller{
@@ -51,8 +56,37 @@ public class MenuBarController implements Controller{
 
     @FXML
     void changeHoursRange(ActionEvent event) {
+        HourRangeDialog dialog = new HourRangeDialog();
+        Optional<Pair<Hour, Hour>> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            Pair<Hour, Hour> range = result.get();
+            Hour start = range.getKey();
+            Hour end = range.getValue();
+            List<String> newLines = new LinkedList<>();
 
+            for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+                try {
+                    //[HH:MM:SS] -> 10 Characters
+                    Hour lineHour = new Hour(line.substring(0, 10));
+                    if (lineHour.isBefore(start)) {
+                        continue;
+                    }
+                    if (lineHour.isAfter(end)) {
+                        // Lets guess all next lines are after the end
+                        break;
+                    }
+                    newLines.add(line);
+                } catch (BLFFormatException e) {
+                    //The line does not start by the hour, lets keep it
+                    newLines.add(line);
+                }
+            }
+
+            mainController.update(newLines);
+        }
     }
+    
+
 
     @FXML
     void closeWindow(ActionEvent event) {
