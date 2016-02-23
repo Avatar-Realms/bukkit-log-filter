@@ -42,6 +42,11 @@
                 <MenuItem mnemonicParsing="false" onAction="#customDeleteStrings" text="Custom" />
               </items>
             </Menu>
+            <Menu mnemonicParsing="false" text="Keep only lines">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#customKeepLines" text="Custom" />
+              </items>
+            </Menu>
       </items>
     </Menu>
     <Menu mnemonicParsing="false" text="Help">

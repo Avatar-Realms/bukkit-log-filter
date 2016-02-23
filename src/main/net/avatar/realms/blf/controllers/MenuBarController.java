@@ -85,6 +85,26 @@ public class MenuBarController implements Controller{
     }
 
     @FXML
+    void customKeepLines(ActionEvent event) {
+
+        CustomStringDialog dialog = new CustomStringDialog("Keep line custom search");
+        Optional<CustomString> result = dialog.showAndWait();
+        if (result.isPresent()) {
+            CustomString cs = result.get();
+            Pattern pat = cs.compile();
+
+            List<String> newLines = new LinkedList<>();
+
+            for (String line : BukkitLogFilter.getLogFilter().getLogs()) {
+                if (FiltersHandler.matchesPattern(line, pat)) {
+                    newLines.add(line);
+                }
+            }
+            mainController.update(newLines);
+        }
+    }
+
+    @FXML
     void customDeleteLines(ActionEvent event) {
 
         CustomStringDialog dialog = new CustomStringDialog("Delete line custom search");
